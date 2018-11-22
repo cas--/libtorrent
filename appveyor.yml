@@ -40,22 +40,6 @@ install:
 - if defined sim ( git submodule update --init --recursive )
 - set ROOT_DIRECTORY=%CD%
 - cd %ROOT_DIRECTORY%
-- if %compiler% == msvc-14.0 (
-    if not exist openssl-1.1.0f-vs2015.7z (
-      echo downloading openssl-2015
-      & appveyor DownloadFile "https://www.npcglib.org/~stathis/downloads/openssl-1.1.0f-vs2015.7z"
-    )
-  )
-- if %compiler% == msvc-14.0 (
-    echo extracting openssl-2015
-    & 7z x -oc:\ -aoa openssl-1.1.0f-vs2015.7z > nul
-    & rename c:\openssl-1.1.0f-vs2015 openssl
-    & copy c:\openssl\lib64\ssleayMT.lib c:\openssl\lib64\ssleay.lib
-    & copy c:\openssl\lib64\libeayMT.lib c:\openssl\lib64\libeay.lib
-    & copy c:\openssl\lib\ssleayMT.lib c:\openssl\lib\ssleay.lib
-    & copy c:\openssl\lib\libeayMT.lib c:\openssl\lib\libeay.lib
-  )
-- cd %ROOT_DIRECTORY%
 - set BOOST_ROOT=c:\Libraries\boost_1_66_0
 - set BOOST_BUILD_PATH=%BOOST_ROOT%\tools\build
 - echo %BOOST_ROOT%
@@ -77,11 +61,10 @@ install:
 - cd %ROOT_DIRECTORY%
 
 cache:
-- openssl-1.1.0f-vs2015.7z
 
 build_script:
 - cd %ROOT_DIRECTORY%\bindings\python
-- b2.exe --hash -j2 %compiler% stage_module install-dependencies=on address-model=64 variant=%variant% libtorrent-link=shared crypto=openssl
+- b2.exe --hash -j2 %compiler% stage_module install-dependencies=on address-model=64 openssl-version=pre1.1 openssl-include=C:\\OpenSSL-Win64\\include openssl-lib=C:\\OpenSSL-Win64\\lib variant=%variant% libtorrent-link=shared crypto=openssl
 - python test.py
 - python setup.py --bjam bdist_msi
 
