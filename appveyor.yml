@@ -86,7 +86,7 @@ install:
     & copy c:\openssl\lib\libsslMT.lib c:\openssl\lib\libssl.lib
   )
 - cd %ROOT_DIRECTORY%
-- set BOOST_ROOT=c:\Libraries\boost_1_67_0
+- set BOOST_ROOT=c:\Libraries\boost_1_66_0
 - set BOOST_BUILD_PATH=%BOOST_ROOT%\tools\build
 - echo %BOOST_ROOT%
 - echo %BOOST_BUILD_PATH%
