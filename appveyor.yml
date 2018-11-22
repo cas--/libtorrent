@@ -97,6 +97,9 @@ build_script:
   # ~ & b2.exe --hash -j2 openssl-version=pre1.1 link=shared crypto=built-in %compiler%
   # ~ )
 
+on_failure:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 artifacts:
   - path: bindings\python\dist\*.msi
     name: python-binding-win32
