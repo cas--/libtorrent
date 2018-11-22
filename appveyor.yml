@@ -70,21 +70,21 @@ install:
     # ~ & copy c:\openssl\lib\ssleay32MT.lib c:\openssl\lib\ssleay32.lib
     # ~ & copy c:\openssl\lib\libeay32MT.lib c:\openssl\lib\libeay32.lib
   # ~ )
-- if %compiler% == msvc-14.0 (
-    if not exist openssl-1.1.0f-vs2015.7z (
-      echo downloading openssl-2015
-      & appveyor DownloadFile "https://www.npcglib.org/~stathis/downloads/openssl-1.1.0f-vs2015.7z"
-    )
-  )
-- if %compiler% == msvc-14.0 (
-    echo extracting openssl-2015
-    & 7z x -oc:\ -aoa openssl-1.1.0f-vs2015.7z > nul
-    & rename c:\openssl-1.1.0f-vs2015 openssl
-    & copy c:\openssl\lib64\libcryptoMT.lib c:\openssl\lib64\libcrypto.lib
-    & copy c:\openssl\lib64\libsslMT.lib c:\openssl\lib64\libssl.lib
-    & copy c:\openssl\lib\libcryptoMT.lib c:\openssl\lib\libcrypto.lib
-    & copy c:\openssl\lib\libsslMT.lib c:\openssl\lib\libssl.lib
-  )
+# ~ - if %compiler% == msvc-14.0 (
+    # ~ if not exist openssl-1.1.0f-vs2015.7z (
+      # ~ echo downloading openssl-2015
+      # ~ & appveyor DownloadFile "https://www.npcglib.org/~stathis/downloads/openssl-1.1.0f-vs2015.7z"
+    # ~ )
+  # ~ )
+# ~ - if %compiler% == msvc-14.0 (
+    # ~ echo extracting openssl-2015
+    # ~ & 7z x -oc:\ -aoa openssl-1.1.0f-vs2015.7z > nul
+    # ~ & rename c:\openssl-1.1.0f-vs2015 openssl
+    # ~ & copy c:\openssl\lib64\libcryptoMT.lib c:\openssl\lib64\libcrypto.lib
+    # ~ & copy c:\openssl\lib64\libsslMT.lib c:\openssl\lib64\libssl.lib
+    # ~ & copy c:\openssl\lib\libcryptoMT.lib c:\openssl\lib\libcrypto.lib
+    # ~ & copy c:\openssl\lib\libsslMT.lib c:\openssl\lib\libssl.lib
+  # ~ )
 - cd %ROOT_DIRECTORY%
 - set BOOST_ROOT=c:\Libraries\boost_1_66_0
 - set BOOST_BUILD_PATH=%BOOST_ROOT%\tools\build
@@ -109,11 +109,11 @@ install:
 cache:
 # ~ - openssl-1.0.1p-vs2010.7z
 # ~ - openssl-1.0.1p-vs2013.7z
-- openssl-1.1.0f-vs2015.7z
+# ~ - openssl-1.1.0f-vs2015.7z
 
 build_script:
 - cd %ROOT_DIRECTORY%\bindings\python
-- b2.exe --hash -j2 %compiler% stage_module install-dependencies=on address-model=64 variant=%variant% libtorrent-link=shared crypto=openssl
+- b2.exe --hash -j2 %compiler% stage_module install-dependencies=on openssl-include=C:\OpenSSL-Win32\include openssl-lib=C:\OpenSSL-Win64\lib variant=%variant% libtorrent-link=shared crypto=openssl
 - python test.py
 - python setup.py --bjam bdist_msi
 
