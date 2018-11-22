@@ -36,6 +36,7 @@ environment:
 #    linkflags: '"-LC:\\OpenSSL-Win32\\lib"'
 
 install:
+- SET PATH=%PYTHON%;%path%
 - if defined sim ( git submodule update --init --recursive )
 - set ROOT_DIRECTORY=%CD%
 - cd %ROOT_DIRECTORY%
@@ -55,16 +56,17 @@ install:
     & copy c:\openssl\lib\libeayMT.lib c:\openssl\lib\libeay.lib
   )
 - cd %ROOT_DIRECTORY%
-- set BOOST_ROOT=c:\Libraries\boost_1_63_0
+- set BOOST_ROOT=c:\Libraries\boost_1_66_0
 - set BOOST_BUILD_PATH=%BOOST_ROOT%\tools\build
 - echo %BOOST_ROOT%
 - echo %BOOST_BUILD_PATH%
 - set PATH=%PATH%;%BOOST_BUILD_PATH%\src\engine\bin.ntx86
-- 'echo using msvc : 10.0 ; >%HOMEDRIVE%%HOMEPATH%/user-config.jam'
-- 'echo using msvc : 14.0 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
-- 'echo using msvc : 12.0 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
-- 'echo using msvc : 9.0 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
-- type %HOMEDRIVE%%HOMEPATH%\user-config.jam
+#- 'echo using msvc : 10.0 ; >%HOMEDRIVE%%HOMEPATH%/user-config.jam'
+#- 'echo using msvc : 14.0 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
+#- 'echo using msvc : 12.0 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
+#- 'echo using msvc : 9.0 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
+#- 'echo using python : 3.6 : c:\\Python36-x64 ; >>%HOMEDRIVE%%HOMEPATH%/user-config.jam'
+#- type %HOMEDRIVE%%HOMEPATH%\user-config.jam
 - cd %ROOT_DIRECTORY%
 - set PATH=%PATH%;c:\Mingw\bin
 - g++ --version
