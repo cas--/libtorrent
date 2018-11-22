@@ -65,7 +65,7 @@ cache:
 
 build_script:
 - cd %ROOT_DIRECTORY%\bindings\python
-- b2.exe --hash -j2 %compiler% stage_module install-dependencies=on address-model=64 openssl-version=pre1.1 openssl-include=C:\\OpenSSL-Win64\\include openssl-lib=C:\\OpenSSL-Win64\\lib variant=%variant% libtorrent-link=shared crypto=openssl
+- b2.exe --hash -j2 %compiler% stage_module install-dependencies=on address-model=64 openssl-include=C:\\OpenSSL-v11-Win64\\include openssl-lib=C:\\OpenSSL-v11-Win64\\lib variant=%variant% libtorrent-link=shared crypto=openssl
 #- python test.py
 - python setup.py --bjam bdist_msi
 
