@@ -79,10 +79,10 @@ install:
     echo extracting openssl-2015
     & 7z x -oc:\ -aoa openssl-1.1.0f-vs2015.7z > nul
     & rename c:\openssl-1.1.0f-vs2015 openssl
-    & copy c:\openssl\lib64\ssleayMT.lib c:\openssl\lib64\ssleay.lib
-    & copy c:\openssl\lib64\libeayMT.lib c:\openssl\lib64\libeay.lib
-    & copy c:\openssl\lib\ssleayMT.lib c:\openssl\lib\ssleay.lib
-    & copy c:\openssl\lib\libeayMT.lib c:\openssl\lib\libeay.lib
+    & copy c:\openssl\lib64\libcryptoMT.lib c:\openssl\lib64\libcrypto.lib
+    & copy c:\openssl\lib64\libsslMT.lib c:\openssl\lib64\libssl.lib
+    & copy c:\openssl\lib\libcryptoMT.lib c:\openssl\lib\libcrypto.lib
+    & copy c:\openssl\lib\libsslMT.lib c:\openssl\lib\libssl.lib
   )
 - cd %ROOT_DIRECTORY%
 - set BOOST_ROOT=c:\Libraries\boost_1_63_0
