@@ -579,7 +579,7 @@ lib crypto : ssl-deps : <target-os>windows <name>libcrypto <conditional>@openssl
 lib ssl : ssl-deps : <target-os>windows <name>libssl <use>crypto <conditional>@openssl-lib-path : : <conditional>@openssl-include-path ;
 
 # generic OpenSSL
-lib crypto : dl : <name>crypto <use>z <conditional>@openssl-lib-path : : <conditional>@openssl-include-path ;
+lib crypto : : <name>crypto <use>z <conditional>@openssl-lib-path : : <conditional>@openssl-include-path ;
 lib ssl : : <name>ssl <use>crypto <conditional>@openssl-lib-path : : <conditional>@openssl-include-path ;
 
 lib dbghelp : : <name>dbghelp ;
