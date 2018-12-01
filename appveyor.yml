@@ -57,8 +57,22 @@ install:
 build_script:
   # examples
   - cd %ROOT_DIRECTORY%\examples
-  - if defined bjam (
-    b2.exe --hash openssl-version=pre1.1 warnings=all warnings-as-errors=on -j2 %compiler% address-model=%model% picker-debugging=on invariant-checks=full variant=%variant% %linkflags% %include% link=shared crypto=%crypto%
+  - > if defined bjam (
+        b2.exe
+        -j2
+        --hash
+        variant=%variant%
+        %compiler%
+        address-model=%model%
+        crypto=%crypto%
+        openssl-version=pre1.1
+        warnings=all
+        warnings-as-errors=on
+        picker-debugging=on
+        invariant-checks=full
+        %linkflags%
+        %include%
+        link=shared
     )
 
   # tools
