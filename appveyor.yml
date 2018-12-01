@@ -57,7 +57,7 @@ install:
 build_script:
   # examples
   - cd %ROOT_DIRECTORY%\examples
-  - > if defined bjam (
+  - if defined bjam (
         b2.exe
         -j2
         --hash
