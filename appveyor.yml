@@ -36,52 +36,6 @@ install:
 - if defined sim ( git submodule update --init --recursive )
 - set ROOT_DIRECTORY=%CD%
 - cd %ROOT_DIRECTORY%
-- if %compiler% == msvc-12.0 (
-    if not exist openssl-1.0.1p-vs2013.7z (
-      echo downloading openssl-2013
-      & appveyor DownloadFile "https://www.npcglib.org/~stathis/downloads/openssl-1.0.1p-vs2013.7z"
-    )
-  )
-- if %compiler% == msvc-12.0 (
-    echo extracting openssl-2013
-    & 7z x -oc:\ -aoa openssl-1.0.1p-vs2013.7z > nul
-    & rename c:\openssl-1.0.1p-vs2013 openssl
-    & copy c:\openssl\lib64\ssleay32MT.lib c:\openssl\lib64\ssleay32.lib
-    & copy c:\openssl\lib64\libeay32MT.lib c:\openssl\lib64\libeay32.lib
-    & copy c:\openssl\lib\ssleay32MT.lib c:\openssl\lib\ssleay32.lib
-    & copy c:\openssl\lib\libeay32MT.lib c:\openssl\lib\libeay32.lib
-  )
-- if %compiler% == msvc-10.0 (
-    if not exist openssl-1.0.1p-vs2010.7z (
-      echo downloading openssl-2010
-      & appveyor DownloadFile "https://www.npcglib.org/~stathis/downloads/openssl-1.0.1p-vs2010.7z"
-    )
-  )
-- if %compiler% == msvc-10.0 (
-    echo extracting openssl-2010
-    & 7z x -oc:\ -aoa openssl-1.0.1p-vs2010.7z > nul
-    & rename c:\openssl-1.0.1p-vs2010 openssl
-    & copy c:\openssl\lib64\ssleay32MT.lib c:\openssl\lib64\ssleay32.lib
-    & copy c:\openssl\lib64\libeay32MT.lib c:\openssl\lib64\libeay32.lib
-    & copy c:\openssl\lib\ssleay32MT.lib c:\openssl\lib\ssleay32.lib
-    & copy c:\openssl\lib\libeay32MT.lib c:\openssl\lib\libeay32.lib
-  )
-- if %compiler% == msvc-14.0 (
-    if not exist openssl-1.0.1p-vs2015.7z (
-      echo downloading openssl-2015
-      & appveyor DownloadFile "https://www.npcglib.org/~stathis/downloads/openssl-1.0.1p-vs2015.7z"
-    )
-  )
-- if %compiler% == msvc-14.0 (
-    echo extracting openssl-2015
-    & 7z x -oc:\ -aoa openssl-1.0.1p-vs2015.7z > nul
-    & rename c:\openssl-1.0.1p-vs2015 openssl
-    & copy c:\openssl\lib64\ssleay32MT.lib c:\openssl\lib64\ssleay32.lib
-    & copy c:\openssl\lib64\libeay32MT.lib c:\openssl\lib64\libeay32.lib
-    & copy c:\openssl\lib\ssleay32MT.lib c:\openssl\lib\ssleay32.lib
-    & copy c:\openssl\lib\libeay32MT.lib c:\openssl\lib\libeay32.lib
-  )
-- cd %ROOT_DIRECTORY%
 - set BOOST_ROOT=c:\Libraries\boost_1_63_0
 - set BOOST_BUILD_PATH=%BOOST_ROOT%\tools\build
 - echo %BOOST_ROOT%
@@ -102,9 +56,7 @@ install:
 - cd %ROOT_DIRECTORY%
 
 cache:
-- openssl-1.0.1p-vs2010.7z
-- openssl-1.0.1p-vs2013.7z
-- openssl-1.0.1p-vs2015.7z
+#- openssl-1.0.1p-vs2010.7z
 
 build_script:
 - if not defined x64 (
@@ -115,7 +67,7 @@ build_script:
     b2.exe --hash -j2 crypto=openssl openssl-version=pre1.1 address-model=32 %compiler% variant=%variant% debug-iterators=on picker-debugging=on invariant-checks=full link=shared
   )
   & cd %ROOT_DIRECTORY%\bindings\python
-  & b2.exe --hash -j2 openssl-version=pre1.1 %compiler% stage_module install-dependencies=on variant=%variant% libtorrent-link=shared crypto=openssl
+  & b2.exe --hash -j2 crypto=openssl openssl-version=pre1.1 %compiler% stage_module install-dependencies=on variant=%variant% libtorrent-link=shared
   & python test.py
   & if defined python_package ( python setup.py --bjam bdist_msi )
   )
@@ -123,13 +75,13 @@ build_script:
 test_script:
 - cd %ROOT_DIRECTORY%\test
 - if defined x64 (
-  appveyor-retry b2.exe -l400 --hash -j2 openssl-version=pre1.1 address-model=64 win-tests %compiler% variant=%variant% link=shared
+  appveyor-retry b2.exe -l400 --hash -j2 address-model=64 win-tests %compiler% variant=%variant% link=shared
   ) else (
-  appveyor-retry b2.exe -l400 --hash -j2 openssl-version=pre1.1 address-model=32 win-tests %compiler% variant=%variant% link=shared
+  appveyor-retry b2.exe -l400 --hash -j2 address-model=32 win-tests %compiler% variant=%variant% link=shared
   )
 - if defined sim (
   cd %ROOT_DIRECTORY%\simulation
-  & b2.exe --hash -j2 openssl-version=pre1.1 link=shared crypto=built-in %compiler%
+  & b2.exe --hash -j2 link=shared crypto=built-in %compiler%
   )
 
 artifacts:
