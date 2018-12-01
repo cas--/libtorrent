@@ -388,7 +388,7 @@ rule openssl-include-path ( properties * )
 	{
 		# on windows, assume openssl is installed to c:\OpenSSL-Win32
 		if <address-model>64 in $(properties)
-		{ OPENSSL_INCLUDE = c:\\OpenSSL-Win64\\include64 ; }
+		{ OPENSSL_INCLUDE = c:\\OpenSSL-Win64\\include ; }
 		else
 		{ OPENSSL_INCLUDE = c:\\OpenSSL-Win32\\include ; }
 	}
