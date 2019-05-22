@@ -60,7 +60,12 @@ try:
 except:
 	ldflags = None
 
-ext = None
+ext = [Extension(
+	name='libtorrent',
+	sources=[]
+)]
+
+
 packages = None
 
 if '--bjam' in sys.argv:
