@@ -162,10 +162,14 @@ try:
         def finalize_options(self):
             _bdist_wheel.finalize_options(self)
             self.root_is_pure = False
-            self.install_lib = self.install_platlib
 except ImportError:
     bdist_wheel = None
 
+from setuptools.command.install import install
+class InstallPlatlib(install):
+    def finalize_options(self):
+        install.finalize_options(self)
+        self.install_lib = self.install_platlib
 
 setup(name = 'deluge-libtorrent',
 	version = '1.1.13',
@@ -178,5 +182,5 @@ setup(name = 'deluge-libtorrent',
 	license = 'BSD',
 	packages = packages,
 	ext_modules = ext,
-	cmdclass={'bdist_wheel': bdist_wheel},
+	cmdclass={'bdist_wheel': bdist_wheel, 'install': InstallPlatlib},
 )
