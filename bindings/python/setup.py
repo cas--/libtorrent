@@ -60,10 +60,7 @@ try:
 except:
 	ldflags = None
 
-ext = [Extension(
-	name='libtorrent',
-	sources=[]
-)]
+ext = None
 
 
 packages = None
@@ -159,7 +156,17 @@ else:
 			extra_compile_args = extra_compile + arch() + target_specific(),
 			libraries = ['torrent-rasterbar'] + flags.libraries)]
 
-setup(name = 'python-libtorrent',
+try:
+    from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
+    class bdist_wheel(_bdist_wheel):
+        def finalize_options(self):
+            _bdist_wheel.finalize_options(self)
+            self.root_is_pure = False
+except ImportError:
+    bdist_wheel = None
+
+
+setup(name = 'deluge-libtorrent',
 	version = '1.1.13',
 	author = 'Arvid Norberg',
 	author_email = 'arvid@libtorrent.org',
@@ -169,5 +176,6 @@ setup(name = 'python-libtorrent',
 	platforms = [platform.system() + '-' + platform.machine()],
 	license = 'BSD',
 	packages = packages,
-	ext_modules = ext
+	ext_modules = ext,
+	cmdclass={'bdist_wheel': bdist_wheel},
 )
