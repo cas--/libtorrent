@@ -102,6 +102,8 @@ on_failure:
 
 artifacts:
   - path: bindings\python\dist\*.whl
+    name: python-wheel
+  - path: bindings\python\dist\*.msi
     name: python-binding-win32
   - path: bindings\python\libtorrent*.pyd
     name: libtorrent.pyd
