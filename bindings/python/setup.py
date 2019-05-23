@@ -90,7 +90,7 @@ if '--bjam' in sys.argv:
 				toolset = ' toolset=msvc-9.0'
 			elif sys.version_info[0:2] in ((3, 3), (3, 4)):
 				toolset = ' toolset=msvc-10.0'
-			elif sys.version_info[0:2] in ((3, 5), (3, 6)):
+			elif sys.version_info[0:2] in ((3, 5), (3, 6), (3, 7)):
 				toolset = ' toolset=msvc-14'
 			else:
 				# unknown python version, lets hope the user has the right version of msvc configured
