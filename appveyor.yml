@@ -35,7 +35,8 @@ build_script:
   # python binding
   - cd %ROOT_DIRECTORY%\bindings\python
   # we use 64 bit python builds
-  - > if defined release (
+  - >
+    if defined release (
         b2.exe --hash
         warnings=all
         warnings-as-errors=on
