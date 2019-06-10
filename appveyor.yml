@@ -39,7 +39,7 @@ install:
 build_script:
   # python binding
   - cd %ROOT_DIRECTORY%\bindings\python
-  - python -m pip3 install wheel
+  - python -m pip install wheel
   - pip -V
   - pip show wheel
   - python setup.py bdist_wheel
