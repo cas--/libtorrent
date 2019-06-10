@@ -18,7 +18,7 @@ install:
   - if not defined linkflags ( set linkflags="" )
   - if not defined include ( set include="" )
   - cd %ROOT_DIRECTORY%
-  - set BOOST_ROOT=c:\Libraries\boost_1_63_0
+  - set BOOST_ROOT=c:\Libraries\boost_1_66_0
   - set BOOST_BUILD_PATH=%BOOST_ROOT%\tools\build
   - echo %BOOST_ROOT%
   - echo %BOOST_BUILD_PATH%
@@ -43,16 +43,15 @@ build_script:
     -j2
     %compiler%
     address-model=%model%
-    picker-debugging=on
-    invariant-checks=full
     variant=%variant%
-    %linkflags%
-    %include%
     link=shared
-    crypto=%crypto%
+    crypto=openssl
     libtorrent-link=shared
     stage_module
     stage_dependencies
+    openssl-include=C:\\OpenSSL-v11-Win64\\include
+    openssl-lib=C:\\OpenSSL-v11-Win64\\lib
+    variant=%variant%
 
 #~ test_script:
   #~ - cd %ROOT_DIRECTORY%\bindings\python
