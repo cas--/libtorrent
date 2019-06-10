@@ -40,9 +40,6 @@ build_script:
   # python binding
   - cd %ROOT_DIRECTORY%\bindings\python
   - python -m pip install wheel
-  - pip -V
-  - pip show wheel
-  - python setup.py bdist_wheel
   - >
     b2.exe --hash
     -j2
