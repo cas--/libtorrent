@@ -9,6 +9,7 @@ environment:
     PYTHON: "C:\\Python36-x64"
 
 install:
+  - SET PATH=%PYTHON%;%path%
   - git submodule update --init --recursive
   - set ROOT_DIRECTORY=%CD%
   - cd %ROOT_DIRECTORY%
