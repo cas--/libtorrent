@@ -1,1 +1,1 @@
-include clang_tidy.jam
+include clang_tidy.jam ;

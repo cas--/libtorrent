@@ -39,11 +39,10 @@ install:
 build_script:
   # python binding
   - cd %ROOT_DIRECTORY%\bindings\python
-  # we use 64 bit python builds
   - >
     b2.exe --hash
     -j2
-    %compiler%
+    toolset=%compiler%
     address-model=%model%
     variant=%variant%
     link=shared
@@ -54,7 +53,8 @@ build_script:
     openssl-include=C:\\OpenSSL-v11-Win64\\include
     openssl-lib=C:\\OpenSSL-v11-Win64\\lib
     variant=%variant%
-
+  - python -m pip install wheel
+  - python setup.py --bjam bdist_wheel bdist_msi
 #~ test_script:
   #~ - cd %ROOT_DIRECTORY%\bindings\python
   #~ # we use 64 bit python build
