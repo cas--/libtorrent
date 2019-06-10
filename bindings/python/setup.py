@@ -188,5 +188,6 @@ setup(
     platforms=[platform.system() + '-' + platform.machine()],
     license='BSD',
     packages=packages,
-    ext_modules=ext
+    ext_modules=ext,
+    setup_requires=['wheel'],
 )
