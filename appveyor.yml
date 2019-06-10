@@ -13,7 +13,7 @@ environment:
     PYTHON: "C:\\Python37-x64"
 
 install:
-  - SET PATH=%PYTHON%;%path%
+  - SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
   - git submodule update --init --recursive
   - set ROOT_DIRECTORY=%CD%
   - cd %ROOT_DIRECTORY%
@@ -30,7 +30,7 @@ install:
   - cd %ROOT_DIRECTORY%
   - set PATH=c:\msys64\mingw32\bin;%PATH%
   - g++ --version
-  - python --version
+  - python -VV
   - echo %ROOT_DIRECTORY%
   - cd %BOOST_BUILD_PATH%\src\engine
   - build.bat >nul
@@ -39,6 +39,8 @@ install:
 build_script:
   # python binding
   - cd %ROOT_DIRECTORY%\bindings\python
+  - python -m pip install wheel
+  - python setup.py bdist_wheel
   - >
     b2.exe --hash
     -j2
@@ -53,7 +55,6 @@ build_script:
     openssl-include=C:\\OpenSSL-v11-Win64\\include
     openssl-lib=C:\\OpenSSL-v11-Win64\\lib
     variant=%variant%
-  - python -m pip install wheel
   - python setup.py --bjam bdist_wheel bdist_msi
 #~ test_script:
   #~ - cd %ROOT_DIRECTORY%\bindings\python
