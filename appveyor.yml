@@ -37,24 +37,22 @@ build_script:
   - cd %ROOT_DIRECTORY%\bindings\python
   # we use 64 bit python builds
   - >
-    if defined release (
-        b2.exe --hash
-        warnings=all
-        warnings-as-errors=on
-        -j2
-        %compiler%
-        address-model=%model%
-        picker-debugging=on
-        invariant-checks=full
-        variant=%variant%
-        %linkflags%
-        %include%
-        link=shared
-        crypto=%crypto%
-        libtorrent-link=shared
-        stage_module
-        stage_dependencies
-    )
+    b2.exe --hash
+    warnings=all
+    warnings-as-errors=on
+    -j2
+    %compiler%
+    address-model=%model%
+    picker-debugging=on
+    invariant-checks=full
+    variant=%variant%
+    %linkflags%
+    %include%
+    link=shared
+    crypto=%crypto%
+    libtorrent-link=shared
+    stage_module
+    stage_dependencies
 
 #~ test_script:
   #~ - cd %ROOT_DIRECTORY%\bindings\python
